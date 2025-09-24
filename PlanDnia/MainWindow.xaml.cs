@@ -11,14 +11,46 @@ using System.Windows.Shapes;
 
 namespace PlanDnia
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
+        private DataBase db;
+
         public MainWindow()
         {
             InitializeComponent();
+            db = new DataBase("plan_dnia.db");
+            db.CreateTable();
+            LoadTasks();
+        }
+
+        private void LoadTasks()
+        {
+            var tasks = db.GetTasks();
+            TasksListBox.ItemsSource = tasks;
+        }
+
+        private void AddTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            var newTask = new Task
+            {
+                Title = TaskTitleTextBox.Text,
+                Description = TaskDescriptionTextBox.Text,
+                Date = TaskDatePicker.SelectedDate ?? DateTime.Now,
+                IsCompleted = false
+            };
+            db.AddTask(newTask);
+            LoadTasks();
+        }
+
+        private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedTask = (Task)TasksListBox.SelectedItem;
+            if (selectedTask != null)
+            {
+                db.DeleteTask(selectedTask.Id);
+                LoadTasks();
+            }
         }
     }
 }
