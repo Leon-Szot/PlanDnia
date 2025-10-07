@@ -7,4 +7,9 @@ public class Task
     public string Description { get; set; }
     public DateTime Date { get; set; }
     public bool IsCompleted { get; set; }
+
+    public override string ToString()
+    {
+        return Title;
+    }
 }

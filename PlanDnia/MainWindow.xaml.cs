@@ -1,17 +1,9 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PlanDnia
 {
-
     public partial class MainWindow : Window
     {
         private DataBase db;
@@ -50,6 +42,28 @@ namespace PlanDnia
             {
                 db.DeleteTask(selectedTask.Id);
                 LoadTasks();
+            }
+        }
+
+        // Obsługuje zmianę wyboru w ListBox
+        private void TasksListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            var selectedTask = (Task)TasksListBox.SelectedItem;
+            if (selectedTask != null)
+            {
+                // Wyświetlanie szczegółów wybranego zadania
+                TaskDetailsTextBlock.Text = selectedTask.Title;
+                TaskDescriptionTextBlock.Text = $"Description: {selectedTask.Description}";
+                TaskDateTextBlock.Text = $"Date: {selectedTask.Date}";
+                TaskCompletedCheckBox.IsChecked = selectedTask.IsCompleted;
+            }
+            else
+            {
+                // Jeśli nic nie jest wybrane, wyczyść szczegóły
+                TaskDetailsTextBlock.Text = string.Empty;
+                TaskDescriptionTextBlock.Text = string.Empty;
+                TaskDateTextBlock.Text = string.Empty;
+                TaskCompletedCheckBox.IsChecked = false;
             }
         }
     }

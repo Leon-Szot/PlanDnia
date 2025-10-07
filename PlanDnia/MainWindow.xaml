@@ -1,26 +1,34 @@
 ﻿<Window x:Class="PlanDnia.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Plan dnia" Height="450" Width="1016">
-	<Grid HorizontalAlignment="Left" Width="879" Margin="112,10,0,0">
-		<TextBlock FontSize="25" Text="Plan dnia" VerticalAlignment="Bottom" Margin="141,0,-122,376"/>
+        Title="Plan Dnia" Height="350" Width="525">
+    <Grid>
+        <!-- ListBox do wyświetlania tytułów zadań -->
+        <ListBox x:Name="TasksListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Height="200" 
+                 SelectionChanged="TasksListBox_SelectionChanged" Margin="10,10,0,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-		<!-- Tytuł zadania -->
-		<TextBox x:Name="TaskTitleTextBox" Width="300" Height="30" VerticalAlignment="Top" Margin="450,48,50,0" />
+        <!-- Kontrolki do wyświetlania szczegółów wybranego zadania -->
+        <TextBlock x:Name="TaskDetailsTextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   Margin="320,10,10,0" FontWeight="Bold" />
+        <TextBlock x:Name="TaskDescriptionTextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   Margin="320,40,10,0"/>
+        <TextBlock x:Name="TaskDateTextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   Margin="320,70,10,0"/>
+        <CheckBox x:Name="TaskCompletedCheckBox" Content="Completed" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                  Margin="320,100,10,0"/>
 
-		<!-- Opis zadania -->
-		<TextBox x:Name="TaskDescriptionTextBox" Width="300" Height="100" VerticalAlignment="Top" Margin="450,95,50,0" AcceptsReturn="True" />
+        <!-- Form do dodawania zadania -->
+        <TextBox x:Name="TaskTitleTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10,220,0,0"/>
+        <TextBox x:Name="TaskDescriptionTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10,250,0,0"/>
+        <DatePicker x:Name="TaskDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10,280,0,0"/>
+        <Button Content="Add Task" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10,310,0,0" Click="AddTaskButton_Click" />
 
-		<!-- Data zadania -->
-		<DatePicker x:Name="TaskDatePicker" Width="200" VerticalAlignment="Top" Margin="490,211,189,0" RenderTransformOrigin="0.962,0.585"/>
-
-		<!-- Przycisk dodawania zadania -->
-		<Button Content="Dodaj zadanie" Width="100" Height="40" VerticalAlignment="Top" Margin="450,240,250,0" Click="AddTaskButton_Click"/>
-
-		<!-- Lista zadań -->
-		<ListBox x:Name="TasksListBox" Width="300" Height="308" VerticalAlignment="Center" Margin="10,0,490,0"/>
-
-		<!-- Przycisk usuwania zadania -->
-		<Button Content="Usuń zadanie" Width="100" Height="40" VerticalAlignment="Top" Margin="650,240,50,0" Click="DeleteTaskButton_Click"/>
-	</Grid>
+        <Button Content="Delete Task" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="220,310,0,0" Click="DeleteTaskButton_Click"/>
+    </Grid>
 </Window>
