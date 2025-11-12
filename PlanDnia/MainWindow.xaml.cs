@@ -8,7 +8,7 @@ namespace PlanDnia
     public partial class MainWindow : Window
     {
         private DataBase db;
-
+        Task selectedTask;
         public MainWindow()
         {
             InitializeComponent();
@@ -50,25 +50,17 @@ namespace PlanDnia
 
         private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            // Sprawdzamy, czy wybrane zadanie pochodzi z listy "Do zrobienia"
-            var selectedTask = (Task)TasksListBox.SelectedItem;
 
-            // Jeśli nie znaleziono zadania w "Do zrobienia", sprawdzamy w "Zrobione"
-            if (selectedTask == null)
-            {
-                selectedTask = (Task)CompletedTasksListBox.SelectedItem;
-            }
-
-            // Jeśli wybrano zadanie, usuwamy je z bazy danych
+   
             if (selectedTask != null)
             {
                 db.DeleteTask(selectedTask.Id);
-                LoadTasks();  // Przeładuj zadania po usunięciu
+                LoadTasks();
             }
         }
         private void TasksListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            var selectedTask = (Task)TasksListBox.SelectedItem;
+            selectedTask = (Task)TasksListBox.SelectedItem;
             if (selectedTask != null)
             {
                 TaskDetailsTextBlock.Text = selectedTask.Title;
@@ -85,7 +77,7 @@ namespace PlanDnia
 
         private void CompletedTasksListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            var selectedTask = (Task)CompletedTasksListBox.SelectedItem;
+            selectedTask = (Task)CompletedTasksListBox.SelectedItem;
             if (selectedTask != null)
             {
                 TaskDetailsTextBlock.Text = selectedTask.Title;
@@ -99,8 +91,6 @@ namespace PlanDnia
                 TaskDateTextBlock.Text = string.Empty;
             }
         }
-
-        // Przenosi zadanie do ukończonych
         private void MoveToCompletedButton_Click(object sender, RoutedEventArgs e)
         {
             var task = (Task)((Button)sender).DataContext;
@@ -109,7 +99,6 @@ namespace PlanDnia
             LoadTasks();
         }
 
-        // Przenosi zadanie z ukończonych do nieukończonych
         private void MoveToPendingButton_Click(object sender, RoutedEventArgs e)
         {
             var task = (Task)((Button)sender).DataContext;

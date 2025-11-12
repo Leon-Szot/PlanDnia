@@ -14,10 +14,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="1" Grid.RowSpan="2">
-            <!-- Nagłówek dla Do zrobienia -->
             <TextBlock Text="Do zrobienia:" FontSize="16" FontWeight="Bold" Margin="10, 10, 10, 5"/>
 
-            <!-- Lista zadań do zrobienia -->
             <ListBox x:Name="TasksListBox" Margin="10, 0, 10, 0" 
             SelectionChanged="TasksListBox_SelectionChanged" BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
                 <ListBox.ItemTemplate>
@@ -33,10 +31,8 @@
         </StackPanel>
 
         <StackPanel Grid.Column="2" Grid.RowSpan="2">
-            <!-- Nagłówek dla Zrobione -->
             <TextBlock Text="Zrobione:" FontSize="16" FontWeight="Bold" Margin="10, 10, 10, 5"/>
 
-            <!-- Lista ukończonych zadań -->
             <ListBox x:Name="CompletedTasksListBox" Margin="10, 0, 10, 0" 
             SelectionChanged="CompletedTasksListBox_SelectionChanged" BorderBrush="Transparent" BorderThickness="0" Background="Transparent">
                 <ListBox.ItemTemplate>
@@ -53,7 +49,6 @@
         </StackPanel>
         
 
-        <!-- Formularz do dodawania zadania -->
         <Grid Grid.Column="0" Grid.Row="0"  Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
