@@ -51,7 +51,6 @@ namespace PlanDnia
         private void DeleteTaskButton_Click(object sender, RoutedEventArgs e)
         {
 
-   
             if (selectedTask != null)
             {
                 db.DeleteTask(selectedTask.Id);
